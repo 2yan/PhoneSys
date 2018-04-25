@@ -29,7 +29,7 @@ def login():
     user_name = request.form['user_name'].lower()
     password = request.form['password']
     
-    creds = pd.read_csv('/PhoneSys/static/creds.csv', index_col='users')['passwords']
+    creds = pd.read_csv('/home/2yan/creds.csv', index_col='users')['passwords']
     if user_name not in creds.index:
         return "NO SUCH USER"
     if user_name in creds.index:
