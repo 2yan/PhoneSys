@@ -3,7 +3,7 @@ import random
 from flask import Flask, request, render_template
 import flask as f
 import hashlib
-
+import os 
 
 app = Flask(__name__)
 
@@ -47,7 +47,10 @@ def home():
         return render_template('login.html')
     return render_template('home.html', user_name = username)
 
-
+@app.route('/test')
+def test():
+    x = os.getcwd()
+    return str(x)  
 
 app.secret_key = str(random.random() + random.random())
 
