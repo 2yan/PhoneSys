@@ -4,8 +4,10 @@ from flask import Flask, request, render_template
 import flask as f
 import hashlib
 import os 
+from flask_sslify import SSLify
 
 app = Flask(__name__)
+sslify = SSLify(app)
 
 def hash(text):
     text = bytes(text, 'utf-8')
