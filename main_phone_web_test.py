@@ -1,6 +1,4 @@
-import main
+import main_phone_web as main
 
 
 
-def test_home():
-    assert main.home() == 'Hello'
