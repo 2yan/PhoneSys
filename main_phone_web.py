@@ -1,5 +1,5 @@
 
-
+import random
 from flask import Flask, request, render_template
 import flask as f
 
@@ -26,7 +26,7 @@ def test():
         return 'Sorry Not Logged In'
     return username
 
+app.secret_key = str(random.random() + random.random())
 
 if __name__ == "__main__":
-    app.secret_key = 'POMCEINVDSLJCO12903ucneasjcp0h#lSnc834win3nasidj390'
     app.run()
