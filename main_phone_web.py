@@ -15,6 +15,13 @@ sslify = SSLify(app)
 
 
 
+def alert(error_text):
+    return '''
+        <script>
+        alert("{}");
+        window.history.back();
+        </script>
+        '''.format(error_text)
 
 @app.route('/logout', methods=['POST'])
 def logout():
@@ -25,17 +32,16 @@ def logout():
 def login():
     attempts = login_tools.get_login_attempts(request)
         
-    user_name = request.form['user_name'].lower()
+    user_name = request.form['user_name']
     password = request.form['password']
     
-    #result = login_tools.login(user_name, password)
-    creds = pd.read_csv('/home/2yan/creds.csv', index_col='users')['passwords']
-    if user_name not in creds.index:
-        return "NO SUCH USER Attempts: {}".format(attempts)
-    if user_name in creds.index:
-        tru_pass = creds[user_name]
-        if login_tools.hash(password) != tru_pass:
-            return 'WRONG PASSWORD Attempts: {}'.format(attempts)
+    try:
+        user_name = login_tools.clean_username(user_name)
+        login_tools.login(user_name, password)
+    except ValueError as v:
+        return alert(str(v) + ' ATTEMPTS: {}'.format(attempts))
+
+    
     f.session['username'] = user_name
     login_tools.reset_attempts(request)
     return home()

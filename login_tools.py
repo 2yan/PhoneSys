@@ -17,8 +17,6 @@ def get_username(session):
     except KeyError:
         return False
     
-    
-    
 def get_login_attempts(request):
     ip_address = get_ip_address(request)
     return sql.record_login_attempt(ip_address)
@@ -29,5 +27,16 @@ def reset_attempts(request):
     return sql.clear_login_attempts(ip_address)
 
 
-#def login(username, password):
+def login(username, password):
+    password = hash(password)
+    sql.password_check(username, password)
+     
     
+def clean_username(username):
+    username = username.lower()
+    allowed_letters = 'qwertyuiopasdafghjklzxcvbnm1234567890@'
+    for character in username: 
+        if character not in allowed_letters:
+            raise ValueError('Only text and numbers for usernames please')
+    return username
+
