@@ -32,8 +32,6 @@ def logout():
 
 @app.route('/login', methods=['POST'])
 def login():
-    
-        
     user_name = request.form['user_name']
     password = request.form['password']
     
@@ -62,9 +60,6 @@ def home():
         return render_template('login.html')
     return render_template('home.html', user_name = username)
 
-@app.route('/test')
-def test():
-   return render_template('test.html')
 
 app.secret_key = str(random.random() + random.random())
 
