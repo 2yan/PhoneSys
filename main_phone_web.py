@@ -45,6 +45,7 @@ def login():
 def ip():
     x = '{}'.format(request.remote_addr)
     x = x + '<br> {} '.format(request.environ['REMOTE_ADDR'])
+    x = x + '<br> {} '.format(request.environ.get('HTTP_X_REAL_IP', request.remote_addr))
     return x
 
 @app.route('/')
