@@ -19,7 +19,8 @@ def get_username(session):
     
 def get_login_attempts(request):
     ip_address = get_ip_address(request)
-    return sql.record_login_attempt(ip_address)
+    attempt_count, last_time = sql.record_login_attempt(ip_address)
+    return attempt_count, last_time
 
 
 def reset_attempts(request):

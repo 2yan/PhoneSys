@@ -1,6 +1,6 @@
 import sqlite3
 import pandas as pd
-
+import time
 
 database_name = 'database.db'
 
@@ -20,7 +20,8 @@ def create_ip_table():
     sql = '''
     create table IF NOT EXISTS ip_address (
     ip TEXT primary key not null,
-    login_attempts INTEGER not null
+    login_attempts INTEGER not null,
+    last_attempt_time INTEGER not null
     )
     '''
     do_sql(sql)
@@ -42,22 +43,28 @@ def create_account_table():
 
 
 def record_login_attempt(ip_address):
+    now = time.time()
+    
     create_ip_table()
     get_attempts_sql = 'select * from ip_address where ip = \'{}\''''.format(ip_address)
     data = read_sql(get_attempts_sql)
     
     if len(data) == 0:
-        new_record_sql = 'insert into ip_address (ip, login_attempts) values ( \'{}\' , \'0\')'.format(ip_address)
+        new_record_sql = "insert into ip_address (ip, login_attempts, last_attempt_time) values ( '{}' , '0', '{}')".format(ip_address, now)
         do_sql(new_record_sql)
     
     if len(data) == 1:
         data.set_index('ip', inplace = True)
+        
+        last_time = int(data.loc[ip_address, 'last_attempt_time'])
         current = data.loc[ip_address, 'login_attempts'] + 1
-        increment_sql = ' UPDATE ip_address SET login_attempts = {} WHERE ip = \'{}\''.format(current, ip_address)
+        increment_sql = ' UPDATE ip_address SET login_attempts = {}, last_attempt_time = {} WHERE ip = \'{}\''.format(current,now, ip_address)
         do_sql(increment_sql)
-        return current
+        return current, now -  last_time
     
-    return 0
+    return 0, 9999
+
+
 
 
 def clear_login_attempts(ip_address):
