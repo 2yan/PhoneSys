@@ -1,10 +1,9 @@
-import pandas as pd
 import random
 from flask import Flask, request, render_template
 import flask as f
-import os 
+
 from flask_sslify import SSLify
-import time
+
 
 import login_tools
 
