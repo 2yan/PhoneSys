@@ -30,7 +30,7 @@ def create_unique_ip_table():
 def create_unique_account_table():
     sql = '''
     create table IF NOT EXISTS account (
-    ip TEXT primary key not null,
+     TEXT primary key not null,
     login_attempts INTEGER not null
     )
     '''

@@ -27,3 +27,7 @@ def get_login_attempts(request):
 def reset_attempts(request):
     ip_address = get_ip_address(request)
     return sql.clear_login_attempts(ip_address)
+
+
+#def login(username, password):
+    
