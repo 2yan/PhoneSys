@@ -41,6 +41,9 @@ def login():
     f.session['username'] = user_name
     return home()
 
+@app.route('/ip')
+def ip():
+    return request.environ['REMOTE_ADDR']
 
 @app.route('/')
 def home():
