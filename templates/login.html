@@ -1,18 +1,23 @@
-<html style="margin: 0;">
+<!DOCTYPE html>
+<html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <div style="height: 100%; width: 100%; ">
+<head>
+<link rel="stylesheet" type="text/css" href={{ url_for('static', filename='common.css') }}>
+</head>
 
-    <form action="/login" method="post" style="text-align: center; position: relative; top: 50%; left: 0%; ">
+  
+<div id="main_div">
+
+<form action="/login" method="post" style="text-align: center; position: relative; top: 50%; left: 0%; ">
       <br>
       <input type="text" name="user_name" placeholder="Username">
       <br><br>
       <input type="password" name="password" placeholder="Password">
       <br><br>
-      <input type="submit" value="Login" style='border: .0; background: lightgrey; font-size: larger; color: grey;'>
-    </form>
+      <input type="submit" value="Login" id="button">
+</form>
 
-
-  </div>
+</div>
 
 </html>

@@ -65,8 +65,7 @@ def home():
 
 @app.route('/test')
 def test():
-    x = os.getcwd()
-    return str(x)  
+   return render_template('test.html')
 
 app.secret_key = str(random.random() + random.random())
 
