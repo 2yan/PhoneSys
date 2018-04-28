@@ -3,25 +3,49 @@
   background: lightgrey;
   font-size: large;
   color: grey;
-
+  font-weight: 100;
 }
 
 html {
   margin: 0;
   padding:0;
+  width: auto;
 }
+
 
 
 #main_div {
   height: 100vh;
-  width: 100vw;
+  width: auto;
   padding:0;
   margin:0;
+  background: transparent;
 }
 
+
 form {
+ text-align: left;
+ position: absolute;
+ top: 50vh;
+ left: 50vw;
+ z-index: 1;
+}
+
+h1 {
+  font-family: 'Helvetica','Verdana','Arial', sans-serif;
+  font-size: largest;
+  position: absolute;
+  top: 50vh;
+  left: 50vw;
+  color: black;
+  font-weight: 100;
+}
+
+p{
+  font-family: 'Helvetica', 'Arial', sans-serif;
   text-align: left;
-  position: relative;
-  top: 50%;
-  left: 30%;
-  }
+  position: absolute;
+  top: 50vh;
+  left: 50vw;
+  font-weight: 100;
+}
