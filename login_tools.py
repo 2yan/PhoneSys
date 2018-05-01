@@ -13,6 +13,7 @@ def get_ip_address(request):
 def get_username(session):
     try:
         username = session['username']
+        username = clean_username(username)
         return username
     except KeyError:
         return False
@@ -31,6 +32,7 @@ def reset_attempts(request):
 def login(username, password):
     password = hash(password)
     sql.password_check(username, password)
+    return 
      
     
 def clean_username(username):
@@ -41,3 +43,10 @@ def clean_username(username):
             raise ValueError('Only text and numbers for usernames please')
     return username
 
+def get_role(username):
+    username = sql.get_role(username)
+    return username
+
+
+
+    

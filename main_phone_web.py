@@ -1,18 +1,19 @@
 import random
-from flask import Flask, request, render_template
 import flask as f
-
+import sql
 from flask_sslify import SSLify
-
-
+from flask import Flask, request, render_template
 import login_tools
 
 
 
+
+
 app = Flask(__name__)
-sslify = SSLify(app)
+#sslify = SSLify(app)
 
-
+app.secret_key = str(random.random() + random.random())
+sql.make_database()
 
 def alert(error_text):
     return '''
@@ -44,11 +45,13 @@ def login():
         
         user_name = login_tools.clean_username(user_name)
         login_tools.login(user_name, password)
+        role = login_tools.get_role(user_name)
     except ValueError as v:
         return alert(str(v) + ' ATTEMPTS: {}'.format(attempts))
 
     
     f.session['username'] = user_name
+    f.session['role'] = role
     login_tools.reset_attempts(request)
     return home()
 
@@ -60,8 +63,11 @@ def home():
         return render_template('login.html')
     return render_template('home.html', user_name = username)
 
+@app.route('/test')
+def test():
+    return render_template('test.html')
 
-app.secret_key = str(random.random() + random.random())
+
 
 if __name__ == "__main__":
     app.run()
